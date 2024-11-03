@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  MyPinch
+
+  Created by Kondamoori, S. (Srinivasarao) on 03/11/2024.
+  
+*/
+
+
+
+"sceneTitle" = "My Games";
+"error" = "Error";
+"ok" = "Ok";
+"cancel" = "Cancel";
+"gamesFetchFailed" = "There seems to be some issue in fetching games, please try after some time.";
+"noInternet" = "It seems you are offline, Please connect to internet.";
+"screenshots" = "Screenshots";
+
