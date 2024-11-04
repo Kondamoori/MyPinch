@@ -131,36 +131,40 @@ struct GamesGridView: View {
 }
 
 #if DEBUG
-fileprivate enum PreviewScenario {
-    case successCase, errorCase, noAccess
-}
-
-#Preview {
-    let scenario: PreviewScenario = .successCase
-    let mockGame = Game(id: 131913, name: "Maji Kyun! Renaissance", rating: 0.0, storyLine: "In a world where art becomes magic", summary: "A cross media collaboration project between Sunrise & Broccolli.", coverId: 267633, checksum: UUID(), coverPhotoModel: nil)
-    let mockGameListService = MockGamesListService()
+struct GamesGridView_Preview: PreviewProvider {
     
-    switch scenario {
-    case .successCase:
-        mockGameListService.gamesToReturn = Array.init(repeating: mockGame, count: 10)
-        var viewModel = GameListViewModel(gamesService: mockGameListService, repository: nil, requestManager: AppConfiguration.default.requestManger, coverPhotoLoader: CoverPhotoLoader()) { _, _ in }
-
-        let cardViewModel = GameCardViewModel(game: mockGame, coverPhotoLoader: CoverPhotoLoader())
-        viewModel.gamesData = Array.init(repeating: cardViewModel, count: 10)
-        return GamesGridView(viewModel: viewModel)
-    case .errorCase:
-        mockGameListService.shouldFail = true
-        var viewModel = GameListViewModel(gamesService: MockGamesListService(), repository: nil,
-            requestManager: AppConfiguration.default.requestManger, coverPhotoLoader: CoverPhotoLoader()) { _, _ in }
-        viewModel.state = .loading
-        return GamesGridView(viewModel: viewModel)
+    fileprivate enum PreviewScenario {
+        case successCase, errorCase, noAccess
+    }
+    
+    static var previews: some View {
         
-    case .noAccess:
-        mockGameListService.shouldFail = true
-        var viewModel = GameListViewModel(gamesService: MockGamesListService(), repository: nil,
-            requestManager: AppConfiguration.default.requestManger, coverPhotoLoader: CoverPhotoLoader()) { _, _ in }
-        viewModel.state = .noAccessToData
-        return GamesGridView(viewModel: viewModel)
+        let scenario: PreviewScenario = .successCase
+        let mockGame = Game(id: 131913, name: "Maji Kyun! Renaissance", rating: 0.0, storyLine: "In a world where art becomes magic", summary: "A cross media collaboration project between Sunrise & Broccolli.", coverId: 267633, checksum: UUID(), coverPhotoModel: nil)
+        let mockGameListService = MockGamesListService()
+        
+        switch scenario {
+        case .successCase:
+            mockGameListService.gamesToReturn = Array.init(repeating: mockGame, count: 10)
+            let viewModel = GameListViewModel(gamesService: mockGameListService, repository: nil, requestManager: AppConfiguration.default.requestManger, coverPhotoLoader: CoverPhotoLoader()) { _, _ in }
+            
+            let cardViewModel = GameCardViewModel(game: mockGame, coverPhotoLoader: CoverPhotoLoader())
+            viewModel.gamesData = Array.init(repeating: cardViewModel, count: 10)
+            return GamesGridView(viewModel: viewModel)
+        case .errorCase:
+            mockGameListService.shouldFail = true
+            let viewModel = GameListViewModel(gamesService: MockGamesListService(), repository: nil,
+                                              requestManager: AppConfiguration.default.requestManger, coverPhotoLoader: CoverPhotoLoader()) { _, _ in }
+            viewModel.state = .loading
+            return GamesGridView(viewModel: viewModel)
+            
+        case .noAccess:
+            mockGameListService.shouldFail = true
+            let viewModel = GameListViewModel(gamesService: MockGamesListService(), repository: nil,
+                                              requestManager: AppConfiguration.default.requestManger, coverPhotoLoader: CoverPhotoLoader()) { _, _ in }
+            viewModel.state = .noAccessToData
+            return GamesGridView(viewModel: viewModel)
+        }
     }
 }
 

@@ -52,11 +52,13 @@ struct GameDetailsView: View {
 }
 
 #if DEBUG
-#Preview {
-    let mockStoryLine = "In a world where art becomes magic, Aigasaki Kohana is a student who just enrolled into Hoshigei Academy, a high school conceived to help students fully develop their art."
-    let mockGame = Game(id: 131913, name: "Maji Kyun! Renaissance", rating: 0.0, storyLine: mockStoryLine, summary: "A cross media collaboration project between Sunrise & Broccolli.", coverId: 267633, checksum: UUID(), coverPhotoModel: nil)
-    
-    let gameDetailsViewModel = GameDetailViewModel(game: mockGame, coverImageId: nil, coverPhotoLoader: CoverPhotoLoader())
-    GameDetailsView(viewModel: gameDetailsViewModel)
+struct GameDetailView_Preview: PreviewProvider {
+    static var previews: some View {
+        let mockStoryLine = "In a world where art becomes magic, Aigasaki Kohana is a student who just enrolled into Hoshigei Academy, a high school conceived to help students fully develop their art."
+        let mockGame = Game(id: 131913, name: "Maji Kyun! Renaissance", rating: 0.0, storyLine: mockStoryLine, summary: "A cross media collaboration project between Sunrise & Broccolli.", coverId: 267633, checksum: UUID(), coverPhotoModel: nil)
+        
+        let gameDetailsViewModel = GameDetailViewModel(game: mockGame, coverImageId: nil, coverPhotoLoader: CoverPhotoLoader())
+        GameDetailsView(viewModel: gameDetailsViewModel)
+    }
 }
 #endif
