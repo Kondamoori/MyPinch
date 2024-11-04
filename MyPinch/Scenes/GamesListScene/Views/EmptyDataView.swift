@@ -15,22 +15,29 @@ struct EmptyDataView: View {
     
     var body: some View {
         GeometryReader { geometry in
-                VStack(spacing: 16) {
-                    Spacer()
-                    Image("refresh")
-                        .resizable()
-                        .frame(width: 300, height: 300)
-                        .aspectRatio(contentMode: .fit)
-                    Button(action: onRetry) {
-                        Text("Please retry")
-                            .padding()
-                            .foregroundColor(.white)
-                            .background(Color.blue)
-                            .cornerRadius(8)
-                    }
-                    Spacer()
+            VStack(alignment: .center, spacing: 16) {
+                Image("refresh")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 300, height: 300)
+                    .padding(.top,  20)
+                Text(errorMessage ?? "No Data Available")
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.secondary)
+                   
+                Button(action: onRetry) {
+                    Text("Please retry")
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(8)
                 }
-            .padding([.leading] ,50)
+                Spacer()
+            }
+            .padding(.leading, 50)
+            .frame(maxWidth: .infinity)
         }
     }
     
