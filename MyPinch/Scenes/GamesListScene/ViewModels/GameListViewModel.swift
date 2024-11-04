@@ -21,7 +21,7 @@ final class GameListViewModel: ObservableObject {
     
     // MARK: - State
     enum State: Equatable {
-        case loading, readyToDisplay, noResults, error, offlineData
+        case loading, readyToDisplay, noResults, error, offlineData, noAccessToData
     }
     
     // MARK: - Internal properties
@@ -88,6 +88,9 @@ final class GameListViewModel: ObservableObject {
             
             loadMore = false
             offset = gamesData.count
+        } catch let error as ApiError where error == .unAuthorized {
+            state = .noAccessToData
+            loadMore = false
         } catch {
             await fetchOfflineGamesAndUpdateState()
         }

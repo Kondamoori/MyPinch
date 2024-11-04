@@ -98,7 +98,17 @@ struct GamesGridView: View {
             showAlertForState(title: LocalizedTranslator.AlertTranslation.error, message: LocalizedTranslator.GamesListScene.failedToFetchGames)
             showAlert = true
             if viewModel.gamesData.isEmpty {
-                gridContent = AnyView(EmptyView())
+                gridContent = AnyView(EmptyDataView(errorMessage: LocalizedTranslator.GamesListScene.failedToFetchGames, onRetry: {
+                    viewModel.refreshData()
+                }))
+            }
+        case .noAccessToData:
+            showAlertForState(title: LocalizedTranslator.AlertTranslation.error, message: LocalizedTranslator.GamesListScene.unauthorisedAccess)
+            showAlert = true
+            if viewModel.gamesData.isEmpty {
+                gridContent = AnyView(EmptyDataView(errorMessage: LocalizedTranslator.GamesListScene.unauthorisedAccess, onRetry: {
+                    viewModel.refreshData()
+                }))
             }
         }
     }
@@ -122,7 +132,7 @@ struct GamesGridView: View {
 
 #if DEBUG
 fileprivate enum PreviewScenario {
-    case successCase, errorCase
+    case successCase, errorCase, noAccess
 }
 
 #Preview {
@@ -143,6 +153,13 @@ fileprivate enum PreviewScenario {
         var viewModel = GameListViewModel(gamesService: MockGamesListService(), repository: nil,
             requestManager: AppConfiguration.default.requestManger, coverPhotoLoader: CoverPhotoLoader()) { _, _ in }
         viewModel.state = .loading
+        return GamesGridView(viewModel: viewModel)
+        
+    case .noAccess:
+        mockGameListService.shouldFail = true
+        var viewModel = GameListViewModel(gamesService: MockGamesListService(), repository: nil,
+            requestManager: AppConfiguration.default.requestManger, coverPhotoLoader: CoverPhotoLoader()) { _, _ in }
+        viewModel.state = .noAccessToData
         return GamesGridView(viewModel: viewModel)
     }
 }

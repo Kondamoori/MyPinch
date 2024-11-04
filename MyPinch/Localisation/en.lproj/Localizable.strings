@@ -15,4 +15,5 @@
 "gamesFetchFailed" = "There seems to be some issue in fetching games, please try after some time.";
 "noInternet" = "It seems you are offline, Please connect to internet.";
 "screenshots" = "Screenshots";
+"unauthorisedAccess" = "It seems you don't have access to data, Please check your access tokens.";
 

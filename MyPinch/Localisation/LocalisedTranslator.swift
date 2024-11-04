@@ -15,6 +15,7 @@ enum LocalizedTranslator {
         static let sceneTitle = NSLocalizedString("sceneTitle", comment: "")
         static let noInternet = NSLocalizedString("noInternet", comment: "")
         static let failedToFetchGames = NSLocalizedString("gamesFetchFailed", comment: "")
+        static let unauthorisedAccess = NSLocalizedString("unauthorisedAccess", comment: "")
     }
     
     // Alert

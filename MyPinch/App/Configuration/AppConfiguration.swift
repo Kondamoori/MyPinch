@@ -47,8 +47,8 @@ enum Environment: String {
     }
     
     var baseHeaders: [String : String]? {
-        ["Authorization" : "Bearer b9b8twp1it10ilyuf6r7n8ajw4tlzz",
-         "Client-ID": "ikefu3gjaojsnnt21ik7orxyofnztq"]
+        ["Authorization" : "Bearer g94eydqn7c3s8w9oil0uxmmqi9qg8w",
+         "Client-ID": "o0ig1tf139vay73vej1z1p686ht078"]
     }
 }
 
